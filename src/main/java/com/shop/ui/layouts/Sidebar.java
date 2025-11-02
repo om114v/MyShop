@@ -29,7 +29,7 @@ public class Sidebar extends VBox {
         this.getStyleClass().add("sidebar");
 
         // Logo
-        Label logo = new Label("Shop Name");
+        Label logo = new Label("MyShop");
         logo.getStyleClass().add("logo");
 
         // Navigation Buttons
@@ -48,7 +48,7 @@ public class Sidebar extends VBox {
         Separator separator = new Separator();
 
         // Add components
-        this.getChildren().addAll(logo, separator, printStickersBtn, profileBtn);
+        this.getChildren().addAll(separator, printStickersBtn, profileBtn);
     }
 
     public void setActiveView(String viewName) {

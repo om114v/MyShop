@@ -212,6 +212,34 @@
     -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 4, 0, 0, 2);
 }
 
+/* Form2 Fields */
+.form2-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+    -fx-padding: 8 0;
+}
+
+.form2-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e1e8ed;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+    -fx-font-size: 14px;
+}
+
+.form2-field:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 4, 0, 0, 2);
+}
+
+.form2-error {
+	-fx-fill: red; 
+	-fx-font-size: 12px;
+	-fx-translate-y: 7px;
+}
+
 /* Choose File Button */
 .choose-file-btn {
     -fx-background-color: #f0f3f7;

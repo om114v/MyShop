@@ -24,30 +24,33 @@ public class ProfileController {
                 showError("Shop Name is required");
                 return;
             }
-            if (gstNumber == null || gstNumber.trim().isEmpty()) {
-                showError("GST Number is required");
-                return;
-            }
-            if (address == null || address.trim().isEmpty()) {
-                showError("Address is required");
-                return;
-            }
-            if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
-                showError("Phone Number is required");
-                return;
-            }
-
-            // Validate GST number format (basic check)
-            if (!gstNumber.matches("\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}[Z]{1}[A-Z\\d]{1}")) {
-                showError("Invalid GST Number format");
-                return;
-            }
-
-            // Validate phone number (basic check)
-            if (!phoneNumber.matches("\\d{10}")) {
-                showError("Phone Number must be 10 digits");
-                return;
-            }
+            
+//            Temporary Validation disabled.
+            
+//            if (gstNumber == null || gstNumber.trim().isEmpty()) {
+//                showError("GST Number is required");
+//                return;
+//            }
+//            if (address == null || address.trim().isEmpty()) {
+//                showError("Address is required");
+//                return;
+//            }
+//            if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
+//                showError("Phone Number is required");
+//                return;
+//            }
+//
+//            // Validate GST number format (basic check)
+//            if (!gstNumber.matches("\\d{2}[A-Z]{5}\\d{4}[A-Z]{1}[A-Z\\d]{1}[Z]{1}[A-Z\\d]{1}")) {
+//                showError("Invalid GST Number format");
+//                return;
+//            }
+//
+//            // Validate phone number (basic check)
+//            if (!phoneNumber.matches("\\d{10}")) {
+//                showError("Phone Number must be 10 digits");
+//                return;
+//            }
 
             // Create profile object
             Profile profile = new Profile(shopName.trim(), gstNumber.trim(), address.trim(), phoneNumber.trim(), logoPath);

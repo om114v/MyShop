@@ -57,7 +57,7 @@ public class ProfileView extends VBox {
 		// Save button
 		saveButton = new ModernButton("Save Profile");
 
-		this.getChildren().addAll(title, shopNameField, gstNumberField, addressField, phoneNumberField, logoSection, saveButton);
+		this.getChildren().addAll(title, shopNameField, gstNumberField, addressField, phoneNumberField, saveButton);
 	}
 
 	private void setupEventHandlers() {

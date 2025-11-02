@@ -29,6 +29,12 @@
             <version>${javafx.version}</version>
         </dependency>
         
+        <!-- PDF dependency for printing. -->
+		<dependency>
+		    <groupId>org.apache.pdfbox</groupId>
+		    <artifactId>pdfbox</artifactId>
+		    <version>3.0.3</version>
+		</dependency>
 
         <!-- SQLite JDBC Driver -->
         <dependency>
