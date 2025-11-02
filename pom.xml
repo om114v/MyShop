@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.shop</groupId>
-    <artifactId>MyCreation</artifactId>
+    <artifactId>MyShop</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -23,18 +23,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
         
-        <!-- PDF dependency for printing. -->
-		<dependency>
-		    <groupId>org.apache.pdfbox</groupId>
-		    <artifactId>pdfbox</artifactId>
-		    <version>3.0.3</version>
-		</dependency>
 
         <!-- SQLite JDBC Driver -->
         <dependency>

@@ -18,7 +18,7 @@ public class MainApplication extends Application {
 		themeManager.setScene(scene);
 		scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
 
-		primaryStage.setTitle("My Creation");
+		primaryStage.setTitle("MyShop");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
