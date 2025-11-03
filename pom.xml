@@ -54,7 +54,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
             </plugin>
-            
+
             <!-- JavaFX Maven Plugin -->
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -64,6 +64,75 @@
                     <mainClass>com.shop.ui.MainApplication</mainClass>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <outputFile>${project.build.directory}/shade/MyShop.jar</outputFile>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.shop.ui.MainApplication</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.panteleyev</groupId>
+                <artifactId>jpackage-maven-plugin</artifactId>
+                <version>1.7.1</version>
+                <configuration>
+                    <!-- Paths -->
+                    <input>${project.build.directory}/shade</input>
+                    <destination>${project.build.directory}/installer</destination>
+                    <mainJar>MyShop.jar</mainJar>
+                    <mainClass>com.shop.ui.MainApplication</mainClass>
+
+                    <!-- JavaFX modules -->
+                    <modulePaths>
+                        <modulePath>C:\Program Files\Java\jdk-23\jmods</modulePath>
+                        <modulePath>C:\Program Files\JavaFX\javafx-jmods-25.0.1</modulePath>
+                    </modulePaths>
+                    <addModules>java.sql,javafx.controls</addModules>
+
+                    <!-- Windows installer options -->
+                    <type>MSI</type>
+                    <winShortcut>true</winShortcut>
+                    <winMenu>true</winMenu>
+                    <name>My Shop</name>
+                    <vendor>Om Vanara</vendor>
+                    <appVersion>1.0.0</appVersion>
+                    <description>My Shop's application</description>
+                    <icon>${project.basedir}/src/main/resources/icon.ico</icon>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>win</id>
+                        <configuration>
+                            <icon>${project.basedir}/src/main/resources/icon.ico</icon>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jpackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>
