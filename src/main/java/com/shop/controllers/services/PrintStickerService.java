@@ -35,8 +35,8 @@ public class PrintStickerService {
 	public void printSticker2(Sticker sticker, int number) throws PrintException, IOException {
 
 		// Sticker size in mm → points
-		float widthMM = 100;
-		float heightMM = 150;
+		float widthMM = 30;
+		float heightMM = 20;
 
 		// Convert mm → pixels (assuming 300 DPI for crisp thermal print)
 		double dpi = 300.0;
@@ -52,13 +52,13 @@ public class PrintStickerService {
 		g.fillRect(0, 0, widthPx, heightPx);
 
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Arial", Font.BOLD, 36));
-		g.drawString(sticker.getShop(), 50, 100);
+		g.setFont(new Font("Arial", Font.BOLD, 30));
+		g.drawString(sticker.getShop(), 20, 50);
 
-		g.setFont(new Font("Arial", Font.PLAIN, 28));
-		g.drawString("Item: " + sticker.getItem(), 50, 170);
-		g.drawString("Price: " + sticker.getPrice(), 50, 220);
-		g.drawString("Supplier: " + sticker.getSupplier(), 50, 270);
+		g.setFont(new Font("Arial", Font.PLAIN, 25));
+		g.drawString("Item : " + sticker.getItem(), 20, 80);
+		g.drawString("Price : " + sticker.getPrice(), 20, 110);
+		g.drawString("Supplier : " + sticker.getSupplier(), 20, 140);
 
 		g.dispose();
 
