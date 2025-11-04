@@ -1,5 +1,7 @@
 package com.shop.ui;
 
+import java.io.File;
+
 import com.shop.ui.layouts.MainLayout;
 import com.shop.ui.theme.ThemeManager;
 import javafx.application.Application;
@@ -23,8 +25,23 @@ public class MainApplication extends Application {
 		primaryStage.show();
 	}
 
-
 	public static void main(String[] args) {
+		getHomeAppFolder();
 		launch(args);
 	}
+
+	public static String getHomeAppFolder() {
+		String homePath = System.getProperty("user.home");
+		File appFolder = new File(homePath + File.separator + ".myshop");
+
+		if (!appFolder.exists()) {
+			boolean created = appFolder.mkdirs();
+			if (!created) {
+				throw new RuntimeException("Failed to create app folder: " + appFolder.getAbsolutePath());
+			}
+		}
+
+		return appFolder.getAbsolutePath();
+	}
+
 }

@@ -1,6 +1,7 @@
 package com.shop.controllers.repositories;
 
 import com.shop.controllers.models.Profile;
+import com.shop.ui.MainApplication;
 
 import java.io.File;
 import java.sql.*;
@@ -8,21 +9,8 @@ import java.util.Optional;
 
 public class ProfileRepository {
 
-	private static String getAppFolder() {
-		String homePath = System.getProperty("user.home");
-		File appFolder = new File(homePath + File.separator + ".myshop");
-
-		if (!appFolder.exists()) {
-			boolean created = appFolder.mkdirs();
-			if (!created) {
-				throw new RuntimeException("Failed to create app folder: " + appFolder.getAbsolutePath());
-			}
-		}
-
-		return appFolder.getAbsolutePath();
-	}
-
-	private static final String DB_URL = "jdbc:sqlite:" + getAppFolder() + File.separator + "shop.db";
+	private static final String DB_URL = "jdbc:sqlite:" + MainApplication.getHomeAppFolder() + File.separator
+			+ "shop.db";
 	private static final String CREATE_TABLE_SQL = """
 			CREATE TABLE IF NOT EXISTS profile (
 			    id INTEGER PRIMARY KEY AUTOINCREMENT,
