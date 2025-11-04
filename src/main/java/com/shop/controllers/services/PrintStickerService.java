@@ -34,6 +34,8 @@ public class PrintStickerService {
 	// Print sticker silently without user interaction.
 	public void printSticker2(Sticker sticker, int number) throws PrintException, IOException {
 
+		sticker.setShop();
+
 		// Sticker size in mm → points
 		float widthMM = 30;
 		float heightMM = 20;
@@ -53,12 +55,14 @@ public class PrintStickerService {
 
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Arial", Font.BOLD, 30));
-		g.drawString(sticker.getShop(), 20, 50);
+		g.drawString(sticker.getShop(), 20, 60);
 
 		g.setFont(new Font("Arial", Font.PLAIN, 25));
-		g.drawString("Item : " + sticker.getItem(), 20, 80);
-		g.drawString("Price : " + sticker.getPrice(), 20, 110);
-		g.drawString("Supplier : " + sticker.getSupplier(), 20, 140);
+		g.drawString("Item : " + sticker.getItem(), 20, 110);
+		g.drawString("Price : " + sticker.getPrice(), 20, 150);
+		g.drawString("Supplier : " + sticker.getSupplier(), 20, 190);
+
+		g.drawRoundRect(10, 10, widthPx - 20, heightPx - 20, 20, 20);
 
 		g.dispose();
 
