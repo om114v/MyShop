@@ -10,13 +10,13 @@ public class Sticker {
 
 	private String shop = "Title";
 	private String item;
-	private String supplier;
+	private String dealer;
 	private int price;
 
-	public Sticker(String item, String supplier, int price) {
+	public Sticker(String item, String dealer, int price) {
 		this.service = new ProfileService();
 		this.item = item;
-		this.supplier = supplier;
+		this.dealer = dealer;
 		this.price = price;
 	}
 
@@ -39,12 +39,12 @@ public class Sticker {
 		this.item = item;
 	}
 
-	public String getSupplier() {
-		return this.supplier;
+	public String getDealer() {
+		return this.dealer;
 	}
 
-	public void setSupplier(String supplier) {
-		this.supplier = supplier;
+	public void setDealer(String dealer) {
+		this.dealer = dealer;
 	}
 
 	public int getPrice() {

@@ -54,13 +54,12 @@ public class PrintStickerService {
 		g.fillRect(0, 0, widthPx, heightPx);
 
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Arial", Font.BOLD, 30));
-		g.drawString(sticker.getShop(), 20, 60);
+		g.setFont(new Font("Arial", Font.BOLD, 35));
+		g.drawString(sticker.getShop(), 30, 60);
 
-		g.setFont(new Font("Arial", Font.PLAIN, 25));
-		g.drawString("Item : " + sticker.getItem(), 20, 110);
-		g.drawString("Price : " + sticker.getPrice(), 20, 150);
-		g.drawString("Supplier : " + sticker.getSupplier(), 20, 190);
+		g.setFont(new Font("Arial", Font.PLAIN, 35));
+		g.drawString(sticker.getItem() + "-" + sticker.getPrice(), 30, 120);
+		g.drawString(sticker.getDealer(), 30, 180);
 
 		g.drawRoundRect(10, 10, widthPx - 20, heightPx - 20, 20, 20);
 

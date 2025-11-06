@@ -13,7 +13,7 @@ public class PrintStickerView extends VBox {
 
 	// Form fields
 	private Form2Field itemField;
-	private Form2Field supplierField;
+	private Form2Field dealerField;
 	private Form2Field priceField;
 	private Form2Field numberField;
 	private ModernButton printButton;
@@ -35,15 +35,15 @@ public class PrintStickerView extends VBox {
 		title.getStyleClass().add("view-title");
 
 		// Create form fields
-		itemField = new Form2Field("Item Name");
-		supplierField = new Form2Field("Supplier Name");
+		itemField = new Form2Field("Item");
+		dealerField = new Form2Field("Dealer");
 		priceField = new Form2Field("Price");
 		numberField = new Form2Field("Number of Sticker");
 
 		// Print button
 		printButton = new ModernButton("Print Sticker");
 
-		this.getChildren().addAll(title, itemField, supplierField, priceField, numberField, printButton);
+		this.getChildren().addAll(title, itemField, dealerField, priceField, numberField, printButton);
 	}
 
 	private void validateFields() {
@@ -69,11 +69,11 @@ public class PrintStickerView extends VBox {
 			} else
 				itemField.clearError();
 
-			if (supplierField.isEmpty()) {
-				supplierField.showError("Supplier name cannot be empty!");
+			if (dealerField.isEmpty()) {
+				dealerField.showError("Dealer name cannot be empty!");
 				hasError = true;
 			} else
-				supplierField.clearError();
+				dealerField.clearError();
 
 			if (priceField.isEmpty()) {
 				priceField.showError("Price is required!");
@@ -89,7 +89,7 @@ public class PrintStickerView extends VBox {
 
 			if (hasError)
 				return; // Stop if any field invalid
-			controller.printSticker(itemField.getText(), supplierField.getText(), Integer.valueOf(priceField.getText()),
+			controller.printSticker(itemField.getText(), dealerField.getText(), Integer.valueOf(priceField.getText()),
 					Integer.valueOf(numberField.getText()));
 		});
 	}
@@ -98,9 +98,9 @@ public class PrintStickerView extends VBox {
 
 	}
 
-	public void populateFields(String item, String supplier, String price, String number) {
+	public void populateFields(String item, String dealer, String price, String number) {
 		itemField.setText(item != null ? item : "");
-		supplierField.setText(supplier != null ? supplier : "");
+		dealerField.setText(dealer != null ? dealer : "");
 		priceField.setText(price != null ? price : "0");
 		numberField.setText(number != null ? number : "0");
 	}

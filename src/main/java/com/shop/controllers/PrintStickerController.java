@@ -13,9 +13,9 @@ public class PrintStickerController {
 		this.service = new PrintStickerService();
 	}
 
-	public void printSticker(String item, String supplier, int price, int number) {
+	public void printSticker(String item, String dealer, int price, int number) {
 		try {
-			Sticker sticker = new Sticker(item, supplier, price);
+			Sticker sticker = new Sticker(item, dealer, price);
 
 			this.service.printSticker2(sticker, number);
 
