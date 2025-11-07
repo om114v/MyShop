@@ -7,13 +7,19 @@
 
     <groupId>com.shop</groupId>
     <artifactId>MyShop</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <javafx.version>21</javafx.version>
+        <javafx.version>25.0.1</javafx.version>
+        <jdk.version>23</jdk.version>
+        
+        <!-- Platform detection -->
+        <javafx.platform>win</javafx.platform>
+        <jdk.platform>windows</jdk.platform>
+        <installer.type>MSI</installer.type>
     </properties>
 
     <dependencies>
@@ -65,6 +71,7 @@
                 </configuration>
             </plugin>
 
+			<!-- Shade Plugin to create fat JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -87,7 +94,51 @@
                 </executions>
             </plugin>
 
+			<!-- Download Maven Plugin to get JavaFX jmods -->
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.9.0</version>
+                <executions>
+                    <execution>
+                        <id>download-javafx-jmods</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <url>https://download2.gluonhq.com/openjfx/${javafx.version}/openjfx-${javafx.version}_${javafx.platform}-x64_bin-jmods.zip</url>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <outputFileName>javafx-jmods.zip</outputFileName>
+                            <skipCache>false</skipCache>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
+			<!-- Unpack Plugin to extract jmods -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>unzip-javafx-jmods</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <unzip src="${project.build.directory}/javafx-jmods.zip" 
+                                       dest="${project.build.directory}" />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+			<!-- JPackage Maven Plugin -->
             <plugin>
                 <groupId>org.panteleyev</groupId>
                 <artifactId>jpackage-maven-plugin</artifactId>
@@ -99,15 +150,21 @@
                     <mainJar>MyShop.jar</mainJar>
                     <mainClass>com.shop.ui.MainApplication</mainClass>
 
-                    <!-- JavaFX modules -->
+                    <!-- Module paths - dynamically set -->
                     <modulePaths>
-                        <modulePath>C:\Program Files\Java\jdk-23\jmods</modulePath>
-                        <modulePath>C:\Program Files\JavaFX\javafx-jmods-25.0.1</modulePath>
+                        <modulePath>${java.home}/jmods</modulePath>
+                        <modulePath>${project.build.directory}/javafx-jmods-${javafx.version}</modulePath>
                     </modulePaths>
                     <addModules>java.sql,javafx.controls</addModules>
+                    
+                    <!-- Application metadata -->
+                    <name>My Shop</name>
+                    <vendor>Om Vanara</vendor>
+                    <appVersion>${project.version}</appVersion>
+                    <description>My Shop's application</description>
 
-                    <!-- Windows installer options -->
-                    <type>MSI</type>
+                    <!-- Windows-specific options -->
+                    <type>${installer.type}</type>
                     <winShortcut>true</winShortcut>
                     <winMenu>true</winMenu>
                     <name>My Shop</name>
@@ -119,12 +176,6 @@
 
                 <executions>
                     <execution>
-                        <id>win</id>
-                        <configuration>
-                            <icon>${project.basedir}/src/main/resources/icon.ico</icon>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>jpackage</goal>
@@ -135,4 +186,75 @@
 
         </plugins>
     </build>
+    <profiles>
+        <!-- Windows Profile -->
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>win</javafx.platform>
+                <jdk.platform>windows</jdk.platform>
+                <installer.type>MSI</installer.type>
+            </properties>
+        </profile>
+
+        <!-- Linux Profile -->
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                    <name>linux</name>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>linux</javafx.platform>
+                <jdk.platform>linux</jdk.platform>
+                <installer.type>deb</installer.type>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <configuration>
+                            <icon>${project.basedir}/src/main/resources/icon.png</icon>
+                            <linuxShortcut>true</linuxShortcut>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- macOS Profile -->
+        <profile>
+            <id>mac</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <properties>
+                <javafx.platform>mac</javafx.platform>
+                <jdk.platform>macos</jdk.platform>
+                <installer.type>dmg</installer.type>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <configuration>
+                            <icon>${project.basedir}/src/main/resources/icon.icns</icon>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 </project>
