@@ -163,15 +163,13 @@
                     <vendor>Om Vanara</vendor>
                     <appVersion>${project.version}</appVersion>
                     <description>My Shop's application</description>
+                    <vendor>Om Vanara</vendor>
+
 
                     <!-- Windows-specific options -->
                     <type>${installer.type}</type>
                     <winShortcut>true</winShortcut>
                     <winMenu>true</winMenu>
-                    <name>My Shop</name>
-                    <vendor>Om Vanara</vendor>
-                    <appVersion>1.0.0</appVersion>
-                    <description>My Shop's application</description>
                     <icon>${project.basedir}/src/main/resources/icon.ico</icon>
                 </configuration>
 
