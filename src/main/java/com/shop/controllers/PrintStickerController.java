@@ -17,7 +17,7 @@ public class PrintStickerController {
 		try {
 			Sticker sticker = new Sticker(item, dealer, price);
 
-			this.service.printSticker2(sticker, number);
+			this.service.printSticker(sticker, number);
 
 			this.showSuccess("Stickers printed successfully.");
 

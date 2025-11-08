@@ -38,7 +38,7 @@ public class PrintStickerView extends VBox {
 		itemField = new Form2Field("Item");
 		dealerField = new Form2Field("Dealer");
 		priceField = new Form2Field("Price");
-		numberField = new Form2Field("Number of Sticker");
+		numberField = new Form2Field("Number of Rows");
 
 		// Print button
 		printButton = new ModernButton("Print Sticker");
@@ -82,7 +82,7 @@ public class PrintStickerView extends VBox {
 				priceField.clearError();
 
 			if (numberField.isEmpty()) {
-				numberField.showError("Number of stickers is required!");
+				numberField.showError("Number of Rows is required!");
 				hasError = true;
 			} else
 				numberField.clearError();

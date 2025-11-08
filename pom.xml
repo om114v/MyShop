@@ -170,6 +170,7 @@
                     <type>${installer.type}</type>
                     <winShortcut>true</winShortcut>
                     <winMenu>true</winMenu>
+                    <winUpgradeUuid>c9a9cb6c-9219-4172-86dc-7ce49448de10</winUpgradeUuid>
                     <icon>${project.basedir}/src/main/resources/icon.ico</icon>
                 </configuration>
 
