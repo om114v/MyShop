@@ -135,8 +135,9 @@ public class PrintStickerService {
 			g.drawString(sticker.getShop(), xOffset + 30, 60);
 
 			g.setFont(new Font("Arial", Font.PLAIN, 40));
-			g.drawString(sticker.getItem() + " - " + sticker.getPrice(), xOffset + 30, 120);
-			g.drawString(sticker.getDealer(), xOffset + 30, 180);
+			g.drawString(sticker.getItem() + " - " + sticker.getDealer(), xOffset + 30, 120);
+			g.setFont(new Font("Arial", Font.BOLD, 45));
+			g.drawString(String.valueOf(sticker.getPrice()), xOffset + 30, 180);
 
 			g.drawRoundRect(xOffset + 10, 10, stickerWidthPx - 20, stickerHeightPx - 20, 20, 20);
 		}
@@ -153,9 +154,9 @@ public class PrintStickerService {
 		Doc doc = new SimpleDoc(pngInput, flavor, null);
 
 		PrintRequestAttributeSet attrs = new HashPrintRequestAttributeSet();
-		attrs.add(new Copies(1));
-		attrs.add(new MediaPrintableArea(0, 0, stickerWidthMM * stickersPerRow, stickerHeightMM,
-				MediaPrintableArea.MM));
+		attrs.add(new Copies(rows));
+		attrs.add(
+				new MediaPrintableArea(0, 0, stickerWidthMM * stickersPerRow, stickerHeightMM, MediaPrintableArea.MM));
 
 		PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 
@@ -175,11 +176,9 @@ public class PrintStickerService {
 			File file = new File(selectedFolder, fileName);
 			attrs.add(new Destination(file.toURI()));
 		}
-		for (int row = 0; row < rows; row++) {
-			DocPrintJob job = service.createPrintJob();
-			job.print(doc, attrs);
-			System.out.println("Printed row " + (row + 1) + " with " + stickersPerRow + " stickers");
-		}
+		DocPrintJob job = service.createPrintJob();
+		job.print(doc, attrs);
+		System.out.println("Printed " + rows + " rows with " + stickersPerRow + " stickers");
 	}
 
 }
